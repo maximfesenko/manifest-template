@@ -1,0 +1,146 @@
+<apex:page controller="ManifestDefaultTemplateController"
+		   action="{!doInit}"
+		   standardStylesheets="false"
+		   sidebar="false"
+		   renderAs="pdf"
+		   applyHtmlTag="false"
+		   applyBodyTag="false"
+		   cache="false"
+		   showHeader="false">
+	<html>
+	<head>
+		<apex:stylesheet value="{!URLFOR($Resource.KaptioTravel__assets, '/static-css/print.css')}" />
+		<style>
+				@Page {
+					@top-center {
+						content: element(header);
+						width: 100%;
+					}
+					@bottom-center {
+						content: element(footer);
+						width: 100%;
+						vertical-align: top;
+						padding-top: 5px;
+
+					}
+					@bottom-left {
+						width: 100%;
+						font-weight: lighter;
+						font-size: 16px;
+						content: counter(page) " of " counter(pages);
+					}
+
+					margin-top: {!IF(logoUrl != null, '470px;', '270px;')};
+					margin-bottom: 80px;
+					size:landscape;
+				}
+				body {
+					font-size: 12px;
+				}
+				footer {
+					border-top: 1px solid #ddd;
+					padding-top: 5px;
+					position: running(footer);
+					font-size: 18px;
+					margin-top: 0;
+				}
+				.header {
+					margin-bottom: 60px;
+					overflow: hidden;
+					position: running(header);
+				}
+				.title {
+					height: 100px;
+					width: 100%;
+				}
+				.title h1 {
+					margin-top: 20px;
+				}
+				.title h1,
+				.title h2 {
+					margin: 0;
+					float: left;
+					clear: both;
+				}
+				.title .row {
+					font-size: 16px;
+				}
+				.row {
+					margin: 0;
+				}
+				.content {
+					overflow: visible;
+					padding-bottom: 20px;
+					position: relative;
+				}
+				.table-data {
+					font-size: 14px;
+				}
+				.logo {
+					height: {!IF(logoUrl != null, '200px;', '0')};
+				}
+				.logoImg {
+					float: right;
+					height: 200px;
+				}
+
+				table tr:first-child {
+					border-top : 1pt solid black;
+					border-left: 1pt solid black;
+					border-right: 1pt solid black;
+				}
+				table tr:last-child {
+					border-bottom : 1pt solid black;
+					border-left: 1pt solid black;
+					border-right: 1pt solid black;
+				}
+			</style>
+	</head>
+	<body class="statement">
+	<div class="header">
+		<div class="logo">
+			<apex:image value="{!logoUrl}" rendered="{!logoUrl != null}" styleClass="logoImg"/>
+		</div>
+		<div class="title container">
+			<div class="row">
+				<div class="col-12">
+					<div class="row">
+						Please confirm via e-mail to <a href="mailto:landservices@rockymountaineer.com" target="_blank">landservices@rockymountaineer.com</a> or fax at 604-606-6338.
+					</div>
+					<div class="row">
+						<b>SERVICE NAME: {!service.name}</b>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div style="page-break-before:always; display:none"/>
+	<div class="content">
+		<div class="row table-data">
+			<apex:outputPanel layout="block">
+				<apex:repeat value="{!service.options}" var="option">
+
+					<b>Option Name: {!option.name}</b>
+					<table style="width:100%;" border="1">
+						<tr>
+							<apex:repeat value="{!service.headers}" var="header">
+								<th>{!header}</th>
+							</apex:repeat>
+						</tr>
+						<apex:repeat value="{!option.lines}" var="line">
+							<tr>
+								<apex:repeat value="{!line}" var="val">
+									<td>
+										<apex:outputText escape="false" value="{!val}" />
+									</td>
+								</apex:repeat>
+							</tr>
+						</apex:repeat>
+					</table>
+				</apex:repeat>
+			</apex:outputPanel>
+		</div>
+	</div>
+	</body>
+	</html>
+</apex:page>
