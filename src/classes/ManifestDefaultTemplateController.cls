@@ -142,7 +142,7 @@ public with sharing class ManifestDefaultTemplateController {
 					String firstName = (pax.KaptioTravel__FirstName__c != null) ? pax.KaptioTravel__FirstName__c : '';
 					String lastName = (pax.KaptioTravel__LastName__c != null) ? pax.KaptioTravel__LastName__c : '';
 					passengerInfo.add(salutation + ' ' + firstName + ' ' + lastName + ageString);
-					pgiInfo.add(String.join(this.getPgiInfo(p_passengerPgiFields, pax), ','));
+					pgiInfo.add(String.join(this.getPgiInfo(p_passengerPgiFields, pax), ', '));
 				}
 			}
 			this.addLine(p_itineraryItem, String.join(passengerInfo, '<br/><br/>'), String.join(pgiInfo, '<br/><br/>'));
@@ -171,7 +171,7 @@ public with sharing class ManifestDefaultTemplateController {
 					String firstName = (pax.KaptioTravel__FirstName__c != null) ? pax.KaptioTravel__FirstName__c : '';
 					String lastName = (pax.KaptioTravel__LastName__c != null) ? pax.KaptioTravel__LastName__c : '';
 					passengerInfo.add(salutation + ' ' + firstName + ' ' + lastName + ageString);
-					pgiInfo.add(String.join(this.getPgiInfo(p_passengerPgiFields, pax), ','));
+					pgiInfo.add(String.join(this.getPgiInfo(p_passengerPgiFields, pax), ', '));
 				}
 			}
 			this.addLine(p_itineraryItem, String.join(passengerInfo, '<br/><br/>'), String.join(pgiInfo, '<br/><br/>'));
