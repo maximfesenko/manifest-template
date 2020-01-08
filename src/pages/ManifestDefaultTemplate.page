@@ -8,9 +8,9 @@
 		   cache="false"
 		   showHeader="false">
 	<html>
-	<head>
-		<apex:stylesheet value="{!URLFOR($Resource.KaptioTravel__assets, '/static-css/print.css')}" />
-		<style>
+		<head>
+			<apex:stylesheet value="{!URLFOR($Resource.KaptioTravel__assets, '/static-css/print.css')}" />
+			<style>
 				@Page {
 					@top-center {
 						content: element(header);
@@ -95,52 +95,48 @@
 					border-right: 1pt solid black;
 				}
 			</style>
-	</head>
-	<body class="statement">
-	<div class="header">
-		<div class="logo">
-			<apex:image value="{!logoUrl}" rendered="{!logoUrl != null}" styleClass="logoImg"/>
-		</div>
-		<div class="title container">
-			<div class="row">
-				<div class="col-12">
+		</head>
+		<body class="statement">
+			<div class="header">
+				<div class="logo">
+					<apex:image value="{!logoUrl}" rendered="{!logoUrl != null}" styleClass="logoImg"/>
+				</div>
+				<div class="title container">
 					<div class="row">
-						Please confirm via e-mail to <a href="mailto:landservices@rockymountaineer.com" target="_blank">landservices@rockymountaineer.com</a> or fax at 604-606-6338.
-					</div>
-					<div class="row">
-						<b>SERVICE NAME: {!service.name}</b>
+						<div class="col-12">
+							<div class="row">
+								<b>SERVICE NAME: {!service.name}</b>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div style="page-break-before:always; display:none"/>
-	<div class="content">
-		<div class="row table-data">
-			<apex:outputPanel layout="block">
-				<apex:repeat value="{!service.options}" var="option">
+			<div class="content">
+				<div class="row table-data">
+					<apex:outputPanel layout="block">
+						<apex:repeat value="{!service.options}" var="option">
 
-					<b>Option Name: {!option.name}</b>
-					<table style="width:100%;" border="1">
-						<tr>
-							<apex:repeat value="{!service.headers}" var="header">
-								<th>{!header}</th>
-							</apex:repeat>
-						</tr>
-						<apex:repeat value="{!option.lines}" var="line">
-							<tr>
-								<apex:repeat value="{!line}" var="val">
-									<td>
-										<apex:outputText escape="false" value="{!val}" />
-									</td>
+							<b>Option Name: {!option.name}</b>
+							<table style="width:100%;" border="1">
+								<tr>
+									<apex:repeat value="{!service.headers}" var="header">
+										<th>{!header}</th>
+									</apex:repeat>
+								</tr>
+								<apex:repeat value="{!option.lines}" var="line">
+									<tr>
+										<apex:repeat value="{!line}" var="val">
+											<td>
+												<apex:outputText escape="false" value="{!val}" />
+											</td>
+										</apex:repeat>
+									</tr>
 								</apex:repeat>
-							</tr>
+							</table>
 						</apex:repeat>
-					</table>
-				</apex:repeat>
-			</apex:outputPanel>
-		</div>
-	</div>
-	</body>
+					</apex:outputPanel>
+				</div>
+			</div>
+		</body>
 	</html>
 </apex:page>
