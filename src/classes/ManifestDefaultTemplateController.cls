@@ -197,6 +197,11 @@ public with sharing class ManifestDefaultTemplateController {
 		private List<String> getPgiInfo(Map<String,Map<String,Object>> p_passengerPgiFields, KaptioTravel__Passenger__c p_pax) {
             List<String> passengersPgiInfo = new List<String>();
             for (String passengerFieldName : p_passengerPgiFields.keySet()) {
+				if (p_pax.get(passengerFieldName) == null) {
+					passengersPgiInfo.add('');
+					continue;
+				}
+
                 DisplayType fieldType = (DisplayType)(p_passengerPgiFields.get(passengerFieldName)).get('type');
                 if (fieldType == DisplayType.PICKLIST) {
 
