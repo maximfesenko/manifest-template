@@ -88,6 +88,12 @@ public with sharing class ManifestDefaultTemplateController {
 						'type' => dfr.getType(),
 						'picklistvalues' => picklistValues
 					});
+				} else if (dfr.getType() == Schema.DisplayType.REFERENCE) {
+					passengerPgiFields.put(pgiSchemeAssignment.TargetField__c, new Map<String,Object> {
+						'type' => dfr.getType(),
+						'relationshipname' => dfr.getRelationshipName()
+					});
+					queryPassengerFields.add(dfr.getRelationshipName() + '.Name');
 				} else {
 					passengerPgiFields.put(pgiSchemeAssignment.KaptioTravel__TargetField__c, new Map<String,Object> {
 						'type' => dfr.getType()
@@ -207,6 +213,9 @@ public with sharing class ManifestDefaultTemplateController {
                 } else if (fieldType == DisplayType.DATE || fieldType == DisplayType.DATETIME) {
                     String formattedDate = (Datetime) p_pax.get(passengerFieldName) != null ? ((Datetime)p_pax.get(passengerFieldName)).format('dd MMM YYYY') : '';
                     passengersPgiInfo.add(formattedDate);
+				} else if (fieldType == DisplayType.REFERENCE) {
+					String fieldRelationshipName = (String)(p_passengerPgiFields.get(passengerFieldName)).get('relationshipname');
+					passengersPgiInfo.add((String)p_pax.getSObject(fieldRelationshipName).get('Name'));
                 } else {
                     passengersPgiInfo.add(String.valueOf(p_pax.get(passengerFieldName)));
                 }
